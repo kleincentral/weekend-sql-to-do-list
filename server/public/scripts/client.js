@@ -2,7 +2,7 @@ console.log('JS is sourced!');
 
 function getTodos() {
     axios({
-        type: 'GET',
+        method: 'GET',
         url: '/todos'
     }).then((res) => {
         renderTodos(res.data)
@@ -23,23 +23,45 @@ function renderTodos(data) {
         <li data-todoId=${index.id}
         data-testid="toDoItem">
             ${index.text}
+            <button>Complete</button>
+            <button 
+                data-testid="deleteButton"
+                onclick="deleteTask(event)">
+                Delete
+            </button>
         </li>
         `;
     }
 }
 
+function deleteTask(event){
+    console.log("Attempting to Delete")
+    let idOfTodo = event.target.closest('li').getAttribute('data-todoId')
+    axios({
+        method: 'DELETE',
+        url: `/todos/${idOfTodo}`
+    }).then(function(response) {
+        getTodos()
+    }).catch(function(error){
+        console.log('error in DELETE', error);
+    });
+}
+
 function addTask() {
     console.log("Attempting to add task!")
     let task = document.getElementById('todoText').value
+    document.getElementById('todoText').value = ''
     axios({
-        type: 'POST',
+        method: 'POST',
         url: '/todos',
         data: {
             todo: task
         }
-    }).then(res => {
-        renderTodos(res.data)
-    })
+    }).then(function(response) {
+        getTodos();
+    }).catch(function(error){
+        console.log('error in POST', error);
+    });
 }
 
 getTodos()
