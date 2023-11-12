@@ -1,6 +1,9 @@
 const router = require('express').Router();
 const pool = require('../modules/pool');
 
+/*
+Gets the list from the database.
+*/
 router.get('/', (req,res) =>{
     console.log("Get called!")
     const text = `
@@ -14,6 +17,10 @@ router.get('/', (req,res) =>{
     })
 })
 
+/*
+Posts some new items to the database and
+sends a confirm to the server.
+*/
 router.post('/', (req,res) => {
     console.log('Attempting to POST')
     let text = `
@@ -32,6 +39,11 @@ router.post('/', (req,res) => {
     })
 })
 
+/*
+Gets deletes some item with a specific
+id from the database with the route
+passed from the server.
+*/
 router.delete('/:id', (req,res) =>{
     console.log('Deleting!')
     let text = `
@@ -46,6 +58,10 @@ router.delete('/:id', (req,res) =>{
     })
 })
 
+/*
+Updates the list in the database by
+id to make isComplete true.
+*/
 router.put('/:id', (req,res) => {
     console.log("Updating!")
     let text = `

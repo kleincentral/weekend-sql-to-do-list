@@ -1,5 +1,9 @@
 console.log('JS is sourced!');
 
+/*
+Gets the list from the database by sending a req
+to the server.
+*/
 function getTodos() {
     axios({
         method: 'GET',
@@ -11,6 +15,11 @@ function getTodos() {
     })
 }
 
+
+/*
+Renders the list of items from the todo
+list data it got from the database
+*/
 function renderTodos(data) {
     console.log("Todo's Rendering...")
     const todos = document.getElementById('viewList');
@@ -58,6 +67,11 @@ function renderTodos(data) {
     }
 }
 
+
+/*
+Sends a request to the server to delete
+a certain index with an id index.
+*/
 function deleteTask(event){
     console.log("Attempting to Delete")
     let idOfTodo = event.target.closest('li').getAttribute('data-todoId')
@@ -71,6 +85,11 @@ function deleteTask(event){
     });
 }
 
+/*
+Sends a request to the server to create
+a new task and grabs the task name from
+the clientside input.
+*/
 function addTask() {
     console.log("Attempting to add task!")
     let task = document.getElementById('todoText').value
@@ -88,6 +107,10 @@ function addTask() {
     });
 }
 
+/*
+Sends a request to the server to update
+the completed status in the server
+*/
 function updateTask(event){
     console.log("Attempting to Update")
     let idOfTodo = event.target.closest('li').getAttribute('data-todoId')
@@ -101,4 +124,6 @@ function updateTask(event){
     });
 }
 
+// calls getTodos to render the page
+// upon startup.
 getTodos()
